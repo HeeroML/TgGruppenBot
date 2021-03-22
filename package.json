@@ -1,0 +1,19 @@
+{
+  "name": "telebot",
+  "description": "",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "node app.js"
+},
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/monatheoctocat/my_package/issues"
+  },
+  "homepage": "https://github.com/monatheoctocat/my_package"
+}
+
