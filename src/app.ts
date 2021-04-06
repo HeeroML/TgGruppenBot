@@ -2,29 +2,26 @@ import {Context as TelegrafContext, Markup, Telegraf} from 'telegraf'
 import {MenuMiddleware, MenuTemplate} from 'telegraf-inline-menu'
 import {telegrafThrottler} from 'telegraf-throttler'
 import LocalSession = require('telegraf-session-local');
+import {Session} from "inspector";
 
-const promise = require('bluebird'); // or any other Promise/A+ compatible library;
 
-const initOptions = {
-    promiseLib: promise // overriding the default (ES6 Promise);
-};
-
-const pgp = require('pg-promise')(initOptions);
+//const pgp = require('pg-promise')(initOptions);
 
 // Database connection details;
+/*
 const cn = {
     connectionString: process.env.DATABASE_URL,
     max: 20
 };
+*/
 
-const db = pgp(cn); // database instance;
-interface Slanguage {
+interface SessionData {
     test: boolean;
     menu: number;
 }
 
 interface MyContext extends TelegrafContext {
-    session: Slanguage;
+    session: SessionData;
     match: RegExpExecArray | undefined;
 }
 
