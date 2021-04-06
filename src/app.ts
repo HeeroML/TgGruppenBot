@@ -86,7 +86,7 @@ menu.submenu(
         // hide: () => mainMenuToggle
     })
 menu.submenu(
-    'optionsMenuButton', 'optionsMenu', optionsMenu, {
+    'Optionen', 'optionsMenu', optionsMenu, {
 
         // hide: () => mainMenuToggle
     })
@@ -121,15 +121,15 @@ testMenu.toggle(
 //Main Menu Back Button
 
 updateMenu.navigate(
-    'backMainMenu', '/')
+    'Zurück zum Hauptmenü', '/')
 optionsMenu.navigate(
-    'backMainMenu', '/')
+    'Zurück zum Hauptmenü', '/')
 deleteMenu.navigate(
-    'backMainMenu', '/')
+    'Zurück zum Hauptmenü', '/')
 addMenu.navigate(
-    'backMainMenu', '/')
+    'Zurück zum Hauptmenü', '/')
 testMenu.navigate(
-    'backMainMenu', '/', {
+    'Zurück zum Hauptmenü', '/', {
         joinLastRow: true
     })
 //Menu Area End
