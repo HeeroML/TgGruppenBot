@@ -10,15 +10,12 @@ const initOptions = {
 };
 
 const pgp = require('pg-promise')(initOptions);
-// See also: http://vitaly-t.github.io/pg-promise/module-pg-promise.html
 
 // Database connection details;
 const cn = {
     connectionString: process.env.DATABASE_URL,
     max: 20
 };
-// You can check for all default values in:
-// https://github.com/brianc/node-postgres/blob/master/packages/pg/lib/defaults.js
 
 const db = pgp(cn); // database instance;
 interface Slanguage {
@@ -30,7 +27,6 @@ interface MyContext extends TelegrafContext {
     session: Slanguage;
     match: RegExpExecArray | undefined;
 }
-
 
 //Bot Config
 const URL = process.env.URL_BOT
@@ -53,7 +49,6 @@ const defaultErrorHandler = async (ctx, next, error) => {
     return console.warn(`Inbound ${ctx.from?.id || ctx.chat?.id} | ${error.message}`)
 };
 
-
 //Menu Area Start
 //Create SubMenues
 const updateMenu = new MenuTemplate<MyContext>(
@@ -65,8 +60,7 @@ const deleteMenu = new MenuTemplate<MyContext>(
 const optionsMenu = new MenuTemplate<MyContext>(
     'Hier kannst du Einstellungen ändern')
 const testMenu = new MenuTemplate<MyContext>(
-    'walletMenu')
-
+    'Test Menu')
 //Create SubMenues End
 
 const menu = new MenuTemplate<MyContext>(
@@ -74,21 +68,16 @@ const menu = new MenuTemplate<MyContext>(
 //SubMenuItems
 menu.submenu(
     'Neuen Eintrag einsetzen', 'addEntryMenu', addMenu, {
-        // hide: () => mainMenuToggle
     })
 menu.submenu(
     'Eintrag updaten', 'updateEntryMenu', updateMenu, {
-        // hide: () => mainMenuToggle
     })
 menu.submenu(
     'Eintrag löschen', 'deleteEntryMenu', deleteMenu, {
         joinLastRow: true,
-        // hide: () => mainMenuToggle
     })
 menu.submenu(
     'Optionen', 'optionsMenu', optionsMenu, {
-
-        // hide: () => mainMenuToggle
     })
 //Submenu End
 
@@ -106,7 +95,7 @@ updateMenu.submenu(
 
 optionsMenu.submenu(
     'Test Button', 'testMenu', testMenu, {})
-//Wallet Submenu
+//Test Submenu
 // @ts-ignore
 testMenu.toggle(
     'Test of Toggle Button', 'update afterwards', {
