@@ -179,3 +179,6 @@ async function startup(): Promise<void> {
 startup().then(r => {
     console.log(r)
 })
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))
