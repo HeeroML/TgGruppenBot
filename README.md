@@ -1,2 +1,2 @@
 # TgGruppenBot
-Ein Bot für das verwalten von Gruppenvorschlägen für @gruppen
+Ein Bot für das Verwalten von Gruppenvorschlägen für @gruppen
