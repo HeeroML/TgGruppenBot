@@ -1,42 +1,30 @@
 {
-  "name": "gruppenmanagebot",
-  "description": "This Bot is in creation",
-  "version": "0.0.1",
-  "keywords": [],
-  "author": "web <web@web.com>",
-  "license": "ISC",
+  "name": "tggruppenbot",
+  "version": "1.0.0",
+  "description": "telegram bot",
+  "main": "/dist/app.js",
   "scripts": {
-    "start": "node dist/app.js",
-    "postinstall": "tsc-silent -p tsconfig.json --suppress @",
-    "watch-node": "nodemon dist/app.js",
-    "watch-ts": "tsc -w",
-    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+    "build": "del-cli dist && tsc",
+    "prepack": "npm run build",
+    "start": "ts-node /dist/app.js",
+    "test": "tsc --sourceMap && xo && nyc ava"
   },
-  "dependencies": {
-    "@telegraf/session": "^1.0.1",
-    "bluebird": "^3.7.2",
-    "debug": "^4.3.1",
-    "dotenv": "^8.2.0",
-    "global": "^4.4.0",
-    "moment": "^2.29.1",
-    "pg-promise": "^10.10.1",
-    "telegraf": "^4.3.0",
-    "telegraf-inline-menu": "^6.2.1",
-    "telegraf-session-local": "^2.1.0",
-    "telegraf-throttler": "^0.6.0",
-    "telegram-format": "^2.0.1",
-    "tsc-silent": "^1.2.1",
-    "typegram": "^3.2.3",
-    "typescript": "^4.2.3",
-    "yargs": "^16.2.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tecardo1/TgGruppenBot.git"
   },
+  "author": "Mike Leitner",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/monatheoctocat/my_package/issues"
+    "url": "https://github.com/Tecardo1/TgGruppenBot/issues"
   },
-  "homepage": "https://github.com/monatheoctocat/my_package",
+  "homepage": "https://github.com/Tecardo1/TgGruppenBot#readme",
+  "dependencies": {
+    "grammy": "^0.4.0",
+    "grammy-i18n": "^1.0.0",
+    "typescript": "^4.2.4"
+  },
   "devDependencies": {
-    "@types/node": "^14.14.37"
-  },
-  "main": "dist/app.ts",
-  "repository": "https://github.com/Tecardo1/TgGruppenBot.git"
+    "@types/node": "^14.14.41"
+  }
 }
