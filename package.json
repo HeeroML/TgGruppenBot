@@ -6,7 +6,7 @@
   "scripts": {
     "build": "del-cli dist && tsc",
     "prepack": "npm run build",
-    "start": "ts-node ./dist/app.js",
+    "start": "node ./dist/app.js",
     "test": "tsc --sourceMap && xo && nyc ava"
   },
   "repository": {
