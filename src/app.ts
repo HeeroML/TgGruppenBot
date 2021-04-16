@@ -24,7 +24,7 @@ const bot =  new Bot<MyContext>(token) // <-- put your bot token between the ''
 // grammY will call the listeners when users send messages to your bot.
 //i18n Options
 export const i18n = new I18n({
-    directory: path.resolve(__dirname, 'locales'),
+    directory: path.resolve(path.join(__dirname, '../'), 'locales'),
     defaultLanguage: 'en',
     sessionName: 'session',
     useSession: true,
