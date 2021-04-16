@@ -4,7 +4,7 @@
   "description": "telegram bot",
   "main": "/dist/app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "del-cli dist && tsc",
     "prepack": "npm run build",
     "start": "ts-node ./dist/app.js",
     "test": "tsc --sourceMap && xo && nyc ava"
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/Tecardo1/TgGruppenBot#readme",
   "dependencies": {
+    "del-cli": "^3.0.1",
+    "dist": "^0.1.2",
     "grammy": "^0.4.0",
     "grammy-i18n": "^1.0.0",
     "typescript": "^4.2.4"
