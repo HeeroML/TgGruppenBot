@@ -23,7 +23,7 @@
     "del-cli": "^3.0.1",
     "dist": "^0.1.2",
     "grammy": "^0.4.0",
-    "grammy-i18n": "^1.0.0",
+    "grammy-i18n": "^1.0.1",
     "typescript": "^4.2.4"
   },
   "devDependencies": {

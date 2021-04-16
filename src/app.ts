@@ -1,8 +1,6 @@
-import { Bot } from 'grammy'
+import {Bot, Context as GrammyContext, session} from 'grammy'
 import path from "path";
-import {I18n, pluralize} from "grammy-i18n";
-import {Context as GrammyContext} from "grammy";
-import {I18nContext} from 'grammy-i18n'
+import {I18n, I18nContext, pluralize} from "grammy-i18n";
 
 export interface Session {
     message_id: number;
@@ -30,7 +28,8 @@ export const i18n = new I18n({
 const token = process.env.BOT_TOKEN
 // Create an instance of the `Bot` class and pass your bot token to it.
 // @ts-ignore
-const bot =  new Bot<MyContext>(token) // <-- put your bot token between the ''
+const bot = new Bot<MyContext>(token) // <-- put your bot token between the ''
+bot.use(session({getSessionKey: (ctx) => ctx.chat?.id.toString()}));
 bot.use(i18n.middleware())
 
 // You can now register listeners for on your bot object `bot`.
