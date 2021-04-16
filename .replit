@@ -1,0 +1,2 @@
+language = "bash"
+run = "npm install && npx tsc && npm start"
