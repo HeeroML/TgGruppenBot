@@ -1,2 +1,2 @@
-language = "bash"
+language = "typescript"
 run = "npm install && npx tsc && npm start"
