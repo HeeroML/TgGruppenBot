@@ -1,2 +1,2 @@
-language = "typescript"
+language = "nodejs"
 run = "npm install && npx tsc && npm start"
