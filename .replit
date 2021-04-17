@@ -1,0 +1,2 @@
+language = "nodejs"
+run = "npx npm install && npx tsc && npx npm start >> replit.log"

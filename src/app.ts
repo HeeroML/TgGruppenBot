@@ -1,6 +1,6 @@
 import {Bot, Context as GrammyContext, session} from 'grammy'
 import path from "path";
-import {I18n, I18nContext, pluralize} from "grammy-i18n";
+import {I18n, I18nContext, pluralize} from "@grammyjs/i18n";
 
 export interface Session {
     message_id: number;
