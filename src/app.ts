@@ -2,11 +2,7 @@ import {Bot, session, webhookCallback} from 'grammy'
 import {i18n, token} from './config'
 import {MyContext, SessionData} from './types';
 import {backToMain, mainMenuInlineKeyboard} from './menu/mainMenu';
-import dotenv from 'dotenv';
 import {optionsMenu} from "./menu/optionsMenu";
-
-
-dotenv.config();
 
 export const bot: any = new Bot<MyContext>(token)
 bot.use(
