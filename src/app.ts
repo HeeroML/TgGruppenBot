@@ -38,7 +38,7 @@ bot.command('session',
     async (ctx) => {
         const mainMenu = await mainMenuInlineKeyboard(ctx) //Passing ctx to the function, so that it can use ctx.
         try {
-            await ctx.reply(ctx.i18n.t('session') + ctx.session, {
+            await ctx.reply(ctx.i18n.t('session') + JSON.stringify(ctx.session), {
                 reply_markup: mainMenu
             })
         } catch (e) {
