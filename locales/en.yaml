@@ -3,3 +3,4 @@ message: "Another Welcome"
 URL: This is a URL
 optionsMenuButton: Options
 backMainMenu: "🏠 Home"
+session: "This is all data saved in ctx.session: "
