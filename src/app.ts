@@ -1,47 +1,88 @@
-import {Bot, Context as GrammyContext, session} from 'grammy'
-import path from "path";
-import {I18n, I18nContext, pluralize} from "grammy-i18n";
+import {Bot, session, webhookCallback} from 'grammy'
+import {i18n, token} from './config'
+import {MyContext, SessionData} from './types';
+import {backToMain, mainMenuInlineKeyboard} from './menu/mainMenu';
+import dotenv from 'dotenv';
+import {optionsMenu} from "./menu/optionsMenu";
 
-export interface Session {
-    message_id: number;
-    session: any;
-}
 
-export interface MyContext extends GrammyContext {
-    readonly i18n: I18nContext;
-    session: Session;
-    match: RegExpExecArray | undefined;
-}
+dotenv.config();
 
-//i18n Options
-export const i18n = new I18n({
-    directory: path.resolve(path.join(__dirname, '../'), 'locales'),
-    defaultLanguage: 'en',
-    sessionName: 'session',
-    useSession: true,
-    templateData: {
-        pluralize,
-        uppercase: (value: string) => value.toUpperCase()
+export const bot: any = new Bot<MyContext>(token)
+bot.use(
+    session({ //Default initializing
+        initial(): SessionData {
+            return {
+                i18n: undefined,
+                lang: undefined,
+                url: "https://grammy.dev" //Setting default URL
+            };
+        },
+    })
+);
+
+bot.use(i18n.middleware()) //Initializing i18n Middleware
+
+//start command
+bot.command('start',
+    async (ctx) => {
+        const mainMenu = await mainMenuInlineKeyboard(ctx) //Passing ctx to the function, so that it can use ctx.
+        try {
+            await ctx.reply(ctx.i18n.t('welcome'), {
+                reply_markup: mainMenu
+            })
+        } catch (e) {
+            console.log("Something stupid happened... " + e)
+        }
     }
+)
+
+//Invest Main Amount
+bot.on("message:text", (ctx) => { // with message:text we filter for all messages of type text, no photos and co.
+        const text: string = ctx.msg.text;
+        ctx.reply("Echo: " + text) //Just echoing every text back
+});
+
+bot.callbackQuery("optionMenu", async (ctx) => {
+    await optionsMenu(ctx)
+});
+
+bot.callbackQuery("backHome", async (ctx) => {
+    await backToMain(ctx)
+});
+
+bot.callbackQuery("setLangDE", async (ctx) => {
+    ctx.i18n.locale('de')
+    await backToMain(ctx)
+});
+
+bot.callbackQuery("setLangEN", async (ctx) => {
+    ctx.i18n.locale('en')
+    await backToMain(ctx)
+});
+
+bot.on("callback_query:data", async (ctx, next) => { //catching all unknown callback data. This shouldn't happen and is a mistake by you
+    console.log("Unknown button event with payload", ctx.callbackQuery.data);
+    await ctx.answerCallbackQuery(); // remove loading animation for callbackquerys
+    return next
+});
+
+bot.catch(error => {
+    console.log('Oh no, we catched a error! ', error)
 })
 
-const token = process.env.BOT_TOKEN
-// Create an instance of the `Bot` class and pass your bot token to it.
-// @ts-ignore
-const bot = new Bot<MyContext>(token) // <-- put your bot token between the ''
-bot.use(session({getSessionKey: (ctx) => ctx.chat?.id.toString()}));
-bot.use(i18n.middleware())
 
-// You can now register listeners for on your bot object `bot`.
-// grammY will call the listeners when users send messages to your bot.
 
-// React to /start command
-bot.command('start', (ctx) => ctx.reply(ctx.i18n.t('welcome')))
-// Handle other messages
-bot.on('message', (ctx) => ctx.reply(ctx.i18n.t('message')))
+//Startup function
+async function startup(): Promise<void> {
+    await bot.start()
+    console.log(new Date(), 'Bot started as', bot.api.getMe())
+}
 
-// Now that you specified how to handle messages, you can start your bot.
-// This will connect to the Telegram servers and wait for messages.
-bot.catch(e => (console.log(e)))
-// Start your bot
-bot.start().then(r => console.log(r)).catch(e => console.log(e))
+// Enable graceful stop
+startup().then(r => {
+    console.log(r)
+})
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop())
+process.once('SIGTERM', () => bot.stop())
